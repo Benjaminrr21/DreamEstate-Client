@@ -1,0 +1,1 @@
+export const backgroundImage = {uri: "https://res.cloudinary.com/dx1ec9jse/image/upload/v1722859171/pexels-photo-3075447_nvlwyt.webp"}
