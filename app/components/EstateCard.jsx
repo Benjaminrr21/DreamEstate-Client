@@ -16,13 +16,13 @@ export default function EstateCard({estate}) {
                         color:Colors.white,
                         textAlign:'center',
                         fontFamily:"poppins-bold",
-                        fontSize:15
-                    }}>{estate.pricePerM2} €</Text>
+                        fontSize:17
+                    }}>{estate.pricePerM2*estate.area} €</Text>
                     <Text style={{
                         color:Colors.white,
                         textAlign:'center',
                         fontFamily:"poppins",
-                        fontSize:10
+                        fontSize:12
                     }}>{estate.pricePerM2} €/m2</Text>
                 </View>
             </View>
@@ -42,10 +42,9 @@ const styles = StyleSheet.create({
         paddingHorizontal:10,
         paddingVertical:15,
         borderRadius:15,
-        borderWidth:0.5,
         display:'flex',
         flexDirection:'row',
-        justifyContent:'space-between'
+        justifyContent:'space-between',
     },
     info:{
       width:'65%'  ,

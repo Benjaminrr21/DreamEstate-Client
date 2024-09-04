@@ -6,27 +6,38 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import axios from 'axios'
 import * as SecureStore from 'expo-secure-store'
 import { useNavigation } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect } from 'react';
 
 export default function LoginRegister() {
   const [showPassword, setShowPassword] = useState(true);
 
+  const [isLoggedIn,setIsLoggedIn] = useState(false)
   const [username,setUsername] = useState("");
   const [password,setPassword] = useState("");
   
   const nav = useNavigation()
+
   const login = async() => {
+   
     try {
-    const user = await axios.post("http://10.0.2.2:5000/api/users/login", {
+    const user = await axios.post("http://192.168.1.2:5000/api/users/login", {
       username,password
     })
-    console.log(user);
     Alert.alert("Uspesno!")
-    await SecureStore.setItemAsync("token",user.data.token)
-    await SecureStore.setItemAsync("role",user.data.role)
-    nav.navigate("Home")
+    await AsyncStorage.setItem("token",user.data.token)
+    await AsyncStorage.setItem("role",user.data.role)
+    await AsyncStorage.setItem("isLoggedIn",'true')
+    setIsLoggedIn(true)
+    console.log(await AsyncStorage.getItem("role"));
+    if(await AsyncStorage.getItem("role")=="User")
+      nav.navigate("components/pages/SearchEstates")
+    else if(await AsyncStorage.getItem("role")=="Admin")
+      nav.navigate("components/pages/AddEstate")
+
     }catch(e){
       console.log(e);
-      Alert.alert(e.message)
+      Alert.alert("Korisnicko ime ili lozinka nisu pravilno uneti.")
     }
   }
  
